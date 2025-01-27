@@ -17,6 +17,9 @@ urlpatterns = [
     path('updateSpace/', views.updateSpace, name='updateSpace'),
     path('deleteSpace/<id>', views.deleteSpace , name='deleteSpace'), 
     
+    path('listExhibitor/', views.listExhibitor, name='listExhibitor'),
+    path('exhibitorNew/' , views.exhibitorNew , name='exhibitorNew'),
+    path('saveExhibitor/', views.saveExhibitor , name='saveExhibitor'),
     
     
     

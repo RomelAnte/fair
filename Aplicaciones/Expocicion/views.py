@@ -82,6 +82,25 @@ def deleteSpace(request, id):
     space.delete()
     
     return redirect('listSpace')
+
+def listExhibitor(request):
+    exhibitors = Exhibitor.objects.all()
+    return render(request, 'Exhibitors/index.html', {'exhibitors': exhibitors})
+
+def exhibitorNew(request):
+    spaces = Space.objects.all()
+    return render(request, 'Exhibitors/newExhibitor.html', {'spaces': spaces})
+
+def saveExhibitor(request):
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    phone = request.POST.get('phone')
+    spa= request.POST.get('space')
+    space = Space.objects.get(id=spa)
+    
+    exhibitor = Exhibitor.objects.create(name=name, email=email, phone=phone, space=space)
+    
+    return redirect('listExhibitor')
     
 
 

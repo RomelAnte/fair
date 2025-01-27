@@ -1,0 +1,74 @@
+{% extends "../Plantillas.html" %}
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">New Exhibitors</h1>
+    </div>
+</div>
+<form action="{% url 'saveExhibitor' %}" method="POST" id = 'form_new'>
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="last_name">Last name:</label>
+        <input type="text" name="last_name" id="last_name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="location">Space</label>
+        <select name="space" id="space" class="form-control">
+            <option value="">-- Select a  location --</option>
+            {% for space in spaces %}
+            <option value="{{ space.id }}">{{ space.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<script>
+    $(document).ready(function () {
+        $('#form_new').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                last_name: {
+                    required: true,
+                    minlength: 3
+                },
+                description: {
+                    required: true,
+                    minlength: 10
+                },
+                space:{
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: 'Enter name',
+                    minlength: 'Name must be at least 3 characters long'
+                },
+                last_name: {
+                    required: 'Enter last name',
+                    minlength: 'Last name must be at least 3 characters long'
+                },
+                description: {
+                    required: 'Enter description',
+                    minlength: 'Description must be at least 10 characters long'
+                },
+                space:{
+                    required: 'Select a space'
+                }
+            }
+
+        });
+    });
+</script>
+{% endblock %}
