@@ -1,0 +1,64 @@
+{% extends "../Plantillas.html" %}
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">New Location</h1>
+    </div>
+</div>
+<form action="{% url 'saveSpace' %}" method="POST" id = 'form_new'>
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="capacity">Capacity:</label>
+        <input type="number" name="capacity" id="capacity" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="location">Location</label>
+        <select name="location" id="location" class="form-control">
+            <option value="">-- Select a  location --</option>
+            {% for loc in locations %}
+            <option value="{{ loc.id }}">{{ loc.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<script>
+    $(document).ready(function () {
+        $('#form_new').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                capacity: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                location: {
+                    required: true,
+                }
+            },
+            messages: {
+                name: {
+                    required: 'Enter name',
+                    minlength: 'Name must be at least 3 characters long'
+                },
+                capacity: {
+                    required: 'Enter capacity',
+                    number: 'Capacity must be a number',
+                    min: 'Minimum capacity is 0'
+                },
+                location: {
+                    required: 'Select a location',
+                }
+            }
+
+        });
+    });
+</script>
+{% endblock %}
