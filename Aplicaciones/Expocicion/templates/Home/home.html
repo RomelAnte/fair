@@ -22,4 +22,43 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+<br>
+<hr>
+<br>
+<div class="mapa" style="width: 100%; height: 400px;"></div>
+
+<script>
+    function initMap() {
+        // Obtén todas las ubicaciones desde el template
+        var locations = [
+            {% for location in locations %}
+                {
+                    lat: parseFloat('{{ location.latitude }}'),
+                    lng: parseFloat('{{ location.longitude }}'),
+                    name: '{{ location.name }}',
+                },
+            {% endfor %}
+        ];
+
+        // Crea el mapa centrado en la primera ubicación
+        var map = new google.maps.Map(document.querySelector('.mapa'), {
+            center: locations[0],  // Céntrate en la primera ubicación
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        // Recorre las ubicaciones y coloca un marcador en cada una
+        locations.forEach(function(location) {
+            var coordenadas = new google.maps.LatLng(location.lat, location.lng);
+            var marker = new google.maps.Marker({
+                position: coordenadas,
+                map: map,
+                title: location.name,
+                draggable: true
+            });
+        });
+    }
+</script>
+
+
 {% endblock %}

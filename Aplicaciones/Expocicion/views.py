@@ -1,9 +1,11 @@
+import json
 from django.shortcuts import render, redirect
 from .models import Location, Space, Exhibitor
 
 # Create your views here.
 def home(request):
-    return render(request, 'Home/home.html')
+    locations = Location.objects.all()
+    return render(request, 'Home/home.html', {'locations': locations})
 
 def listLocation(request):
     locations = Location.objects.all()
