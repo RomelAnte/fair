@@ -20,6 +20,9 @@ urlpatterns = [
     path('listExhibitor/', views.listExhibitor, name='listExhibitor'),
     path('exhibitorNew/' , views.exhibitorNew , name='exhibitorNew'),
     path('saveExhibitor/', views.saveExhibitor , name='saveExhibitor'),
+    path('listExhibitorForId/<id>', views.listExhibitorForId, name='listExhibitorForId'),
+    path('updateExhibitor/', views.updateExhibitor , name='updateExhibitor'),
+    path('deleteExhibitor/<id>', views.deleteExhibitor , name='deleteExhibitor'), 
     
     
     

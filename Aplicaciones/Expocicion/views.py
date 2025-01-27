@@ -93,22 +93,34 @@ def exhibitorNew(request):
 
 def saveExhibitor(request):
     name = request.POST.get('name')
-    email = request.POST.get('email')
-    phone = request.POST.get('phone')
+    lastName = request.POST.get('last_name')
+    description = request.POST.get('description')
     spa= request.POST.get('space')
     space = Space.objects.get(id=spa)
     
-    exhibitor = Exhibitor.objects.create(name=name, email=email, phone=phone, space=space)
+    exhibitor = Exhibitor.objects.create(name=name, last_name=lastName, description=description, space=space)
     
     return redirect('listExhibitor')
+
+def listExhibitorForId(request, id):
+    exhibitor = Exhibitor.objects.get(id=id)
+    spaces = Space.objects.all()
+    return render(request, 'Exhibitors/updateExhibitor.html', {'exhibitor': exhibitor, 'spaces': spaces})
+
+def updateExhibitor(request):
+    id = request.POST.get('id')
+    exhibitor = Exhibitor.objects.get(id=id)
+    exhibitor.name = request.POST.get('name')
+    exhibitor.last_name = request.POST.get('last_name')
+    exhibitor.description = request.POST.get('description')
+    exhibitor.space = Space.objects.get(id=request.POST.get('space'))
     
-
-
+    exhibitor.save()
     
+    return redirect('listExhibitor')
 
-
-
+def deleteExhibitor(request, id):
+    exhibitor = Exhibitor.objects.get(id=id)
+    exhibitor.delete()
     
-    
-    
-
+    return redirect('listExhibitor')  
