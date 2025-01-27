@@ -1,0 +1,40 @@
+{% extends "../Plantillas.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">Locations</h1>
+            <div class="text-end">
+                <a href="{% url 'locationNew' %}" class="btn btn-primary">New Location</a>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>City</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.id }}</td>
+            <td>{{ location.name }}</td>
+            <td>{{ location.latitude }}</td>
+            <td>{{ location.longitude }}</td>
+            <td>{{ location.city }}</td>
+            <td>
+                <a href="{% url 'listLocationForId' location.id  %}" class="btn btn-primary">Editar</a>
+                <a href="" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
